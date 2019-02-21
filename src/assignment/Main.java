@@ -9,17 +9,16 @@ public class Main {
 
 class NamePrinter {
     /**
-     * Prints the names of the group members separated by ,.
+     * Prints the names of the group members separated by ;.
      */
     public void printNames() {
-        String separator = ",";
+        String separator = ";";
 
         String[] names = {
                 "Zhiming Xie",
                 "Harish Kaza",
                 "Supriya Adhanki",
-                "Name 4",
-                "Name 5"};
+                "Cedrick Munongo"};
 
         System.out.println(String.join(separator, names));
     }
