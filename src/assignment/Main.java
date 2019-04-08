@@ -15,7 +15,7 @@ class NamePrinter {
         String separator = ";";
 
         String[] names = {
-                "Zhiming Xie",
+                "Zhiming Xie Happy",
                 "Harish Kaza",
                 "Supriya Adhanki",
                 "Cedrick Munongo"};
