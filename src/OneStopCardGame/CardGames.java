@@ -1,4 +1,4 @@
-package OneStop;
+package OneStopCardGame;
 
 import java.util.ArrayList;
 import java.util.List;

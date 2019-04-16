@@ -1,4 +1,4 @@
-package OneStop;
+package OneStopCardGame;
 
 public interface IGameControl {
 	void playGame();

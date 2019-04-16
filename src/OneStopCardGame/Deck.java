@@ -1,4 +1,4 @@
-package OneStop;
+package OneStopCardGame;
 
 //An object of type Deck represents a deck of playing cards.
 public class Deck {

@@ -1,4 +1,4 @@
-package OneStop;
+package OneStopCardGame;
 import java.util.*;
 
 public class gameControl implements IGameControl {

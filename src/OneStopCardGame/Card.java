@@ -1,4 +1,4 @@
-package OneStop;
+package OneStopCardGame;
 //An object of type Card represents a playing card from a standard Poker deck
 public class Card {
    public final static int SPADES = 0;   // Codes for the 4 suits.
