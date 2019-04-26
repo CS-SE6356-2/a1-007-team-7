@@ -18,10 +18,12 @@ class Player {
 	Boolean myTurn;
 
 //	protected Hand hand;
-
 	public Player() {
 //		hand = new Hand();
 		this.cardsInhand = new ArrayList<Card>();
+	}
+	public void SetPassword(String password) {
+		this.password = password;
 	}
 
 //	public void addCard(Card toAdd) {
@@ -259,5 +261,4 @@ class Player {
 	public String MentionSuit() {
 		return "";
 	}
-	
 }

@@ -6,7 +6,7 @@ public class Driver {
 		CardGames controll = new CardGames();
 		controll.runGame(); 		
 	   
-		//gameControl controller= new gameControl();  
-		//controller.runGame();  	
+		gameControl controller= new gameControl();  
+		controller.runGame();  	
 	}
 }
