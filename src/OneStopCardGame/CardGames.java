@@ -94,15 +94,14 @@ public class CardGames implements IGameControl {
 		gamEnd = false;
 
 		for (int i = 0; i < players.size(); i++) {
-			System.out.println("Please keep the messages private to each player.");
-			System.out.println("Enter Player"+(i+1)+" Name: ");
-			players.get(i).playerName = keyboard.next();
-			System.out.println("Enter Player"+(i+1)+" Password: ");
-			players.get(i).SetPassword(keyboard.next()); 
-//			Console c = System.console();
-//			char pass[] = c.readPassword("enter");
-//			players.get(i).SetPassword(new String(pass));
-			System.out.println("Sharing Cards to  "+players.get(i).playerName+"... ");
+			
+//			System.out.println("Please keep the messages private to each player.");
+//			System.out.println("Enter Player"+(i+1)+" Name: ");
+//			players.get(i).playerName = keyboard.next();
+//			System.out.println("Enter Player"+(i+1)+" Password: ");
+//			players.get(i).SetPassword(keyboard.next()); 			
+//			System.out.println("Sharing Cards to  "+players.get(i).playerName+"... ");
+			
 			for (int j = 0; j < 5; j++) // shares cards between players
 			{
 				players.get(i).addCard(deck.dealCard());
@@ -122,6 +121,7 @@ public class CardGames implements IGameControl {
 				gamEnd = false;
 
 			}
+			
 			playRound();
 		}
 		return;
@@ -141,8 +141,18 @@ public class CardGames implements IGameControl {
 			players.get(i).removeCard(played);
 
 			if (played == null) {
-				inconclusive(i);
-				players.get(i).addCard(deck.dealCard());
+				int count=1;
+				if(topCard.getValue()==2) {
+					while(discardPile.getHand().get(discardPile.getCardCount() - count).getValue()==2) {
+						count++;		
+					}
+					for(int j=0;j<2*count;j++) {
+						players.get(i).addCard(deck.dealCard());
+					}
+				}else {
+					inconclusive(i);
+					players.get(i).addCard(deck.dealCard());	
+				}
 			} else {
 				int temp = (i + 1); // prevent computer 0 output
 

@@ -22,6 +22,7 @@ class Player {
 //		hand = new Hand();
 		this.cardsInhand = new ArrayList<Card>();
 	}
+
 	public void SetPassword(String password) {
 		this.password = password;
 	}
@@ -159,6 +160,7 @@ class Player {
 			} else {
 				this.addCard(playable);
 			}
+
 		}
 		return null;
 	}// if deck runs out of card this is used
@@ -184,14 +186,28 @@ class Player {
 	private List<Card> cardsToPlay(Card topCard, ArrayList<Card> hand) {
 		if (hand == null)
 			return null;
-
 		List<Card> returnList = new ArrayList<Card>();
-		for (int i = 0; i < this.getHand().size(); i++) {
-			if (topCard.getSuit() == this.getHand().get(i).getSuit()
-					|| topCard.getValue() == this.getHand().get(i).getValue())
-				returnList.add(this.getHand().get(i));
+		if(topCard.getValue()==2) {
+			if(this.getHand().contains(2)) {
+				
+			}else {
+			}
 		}
-
+		for (int i = 0; i < this.getHand().size(); i++) {
+			
+			if (topCard.getSuit() == this.getHand().get(i).getSuit()
+					|| topCard.getValue() == this.getHand().get(i).getValue() || 11 == this.getHand().get(i).getValue()) {
+				if(topCard.getValue()==2) {
+					if(this.getHand().get(i).getValue()==2) {
+						returnList.add(this.getHand().get(i));
+					}
+				}else {
+					returnList.add(this.getHand().get(i));
+				}
+				
+			}
+			
+		}
 		return returnList;
 	}
 
@@ -207,7 +223,7 @@ class Player {
 	public Card selectCard() {
 		return null;
 	};
-	
+
 	public Player(String name) {
 		this.playerName = name;
 	}
@@ -247,17 +263,17 @@ class Player {
 		else
 			this.Iswaiting = true;
 	}
-	
+
 	public void ActonCard() {
-		//display rules
-		//grab input
-		//code accordign to input
+		// display rules
+		// grab input
+		// code accordign to input
 	}
-	
+
 	public void AddPenaltyCard() {
-		
+
 	}
-	
+
 	public String MentionSuit() {
 		return "";
 	}
