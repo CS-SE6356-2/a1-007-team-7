@@ -20,14 +20,16 @@ public class CardGames implements IGameControl {
 	boolean gamEnd;
 	List<Player> players;
 	Player discardPile;
+	static int suit;
 
 	public CardGames() {
 		init();
 	}
 
 	public void init() {
+		String str = null;
 
-		String str = "This program lets you play the One card Stop game,\n"
+		str = "This program lets you play the One card Stop game,\n"
 				+ "this uses a standard 52 card pack (no Jokers).  \n" + "5 cards are dealt to each player .  \n"
 				+ "1 card is face up, as the discard pile. The undealt stock is placed face down on the table, \n"
 				+ "and the top card of the stock is turned face up and placed \n"
@@ -41,10 +43,13 @@ public class CardGames implements IGameControl {
 				+ "“One Card” If the player has one card left, he needs to yell out “One card” If not, he will get 2 cards for penalty. \n"
 				+ "“Stop!” When the last card is played, the player needs to yell “Stop!” Otherwise, the player will get 2 cards for penalty.\n";
 
-		h.display(str);
-		deck = new Deck();
-		deck.shuffle();
-		gamEnd = false;
+		if (suit == 0) {
+			h.display(str);
+			deck = new Deck();
+			deck.shuffle();
+			gamEnd = false;
+		}
+			
 	}
 
 	public void runGame() {
@@ -84,24 +89,25 @@ public class CardGames implements IGameControl {
 
 	}// runs the game for computer
 
-	public static void clearScreen() {  
-	    System.out.print("\033[H\033[2J");  
-	    System.out.flush();  
-	} 
+	public static void clearScreen() {
+		System.out.print("\033[H\033[2J");
+		System.out.flush();
+	}
+
 	public void playGame() {
 		deck = new Deck();
 		deck.shuffle();
 		gamEnd = false;
 
 		for (int i = 0; i < players.size(); i++) {
-			
-//			System.out.println("Please keep the messages private to each player.");
-//			System.out.println("Enter Player"+(i+1)+" Name: ");
-//			players.get(i).playerName = keyboard.next();
-//			System.out.println("Enter Player"+(i+1)+" Password: ");
-//			players.get(i).SetPassword(keyboard.next()); 			
-//			System.out.println("Sharing Cards to  "+players.get(i).playerName+"... ");
-			
+
+			System.out.println("Please keep the messages private to each player.");
+			System.out.println("Enter Player" + (i + 1) + " Name: ");
+			players.get(i).playerName = keyboard.next();
+			System.out.println("Enter Player" + (i + 1) + " Password: ");
+			players.get(i).SetPassword(keyboard.next());
+			System.out.println("Sharing Cards to  " + players.get(i).playerName + "... ");
+
 			for (int j = 0; j < 5; j++) // shares cards between players
 			{
 				players.get(i).addCard(deck.dealCard());
@@ -121,15 +127,15 @@ public class CardGames implements IGameControl {
 				gamEnd = false;
 
 			}
-			
+
 			playRound();
 		}
 		return;
 	}
 
 	private boolean playRound() {
-		for (int i = 0; i < players.size() - 1; i++) {
-			System.out.println("\nPlayer-" + players.get(i).playerName+ " has " + players.get(i).getHand().toString());
+		for (int i = 0; i < players.size(); i++) {
+			System.out.println("\nPlayer-" + players.get(i).playerName + " has " + players.get(i).getHand().toString());
 			Card topCard = discardPile.getHand().get(discardPile.getCardCount() - 1);
 
 			if (deck.cardsLeft() == 0) {
@@ -141,23 +147,40 @@ public class CardGames implements IGameControl {
 			players.get(i).removeCard(played);
 
 			if (played == null) {
-				int count=1;
-				if(topCard.getValue()==2) {
-					while(discardPile.getHand().get(discardPile.getCardCount() - count).getValue()==2) {
-						count++;		
+				int count = 1;
+				if (topCard.getValue() == 2) {
+					while (discardPile.getHand().get(discardPile.getCardCount() - count).getValue() == 2) {
+						count++;
 					}
-					for(int j=0;j<2*count;j++) {
-						players.get(i).addCard(deck.dealCard());
+					for (int j = 0; j < 2 * count; j++) {
+						if (deck.cardsLeft() == 0) {
+							discardPile.removeCard(topCard);
+							discardPile.shuffle();
+						}
+						if ((count + 1) == players.size()) {
+							players.get(i).addCard(deck.dealCard());
+							count = 0;
+							discardPile.addCard(deck.dealCard());
+						} else {
+							discardPile.addCard(deck.dealCard());
+						}
+
 					}
-				}else {
+				} else {
 					inconclusive(i);
-					players.get(i).addCard(deck.dealCard());	
+					players.get(i).addCard(deck.dealCard());
 				}
 			} else {
 				int temp = (i + 1); // prevent computer 0 output
 
 				playedCard(temp, played);
 
+				if (played.getValue() == 11) {
+					System.out.println(players.get(i).playerName
+							+ " Please mention the suit - 1-Spades /2- Hears/3- Diamonds/4- Clubs");
+					suit = keyboard.nextInt();
+
+				}
 				if (players.get(i).getCardCount() == 0) { // checks for winner of game
 					winner(temp);
 					gamEnd = false;
@@ -170,18 +193,24 @@ public class CardGames implements IGameControl {
 		return gamEnd;
 	}
 
+	public int getSuitTold() {
+		// TODO Auto-generated method stub
+		return suit;
+
+	}
+
 	public void playedCard(int player, Card played) {
-		System.out.print("Player-" + players.get(player-1).getName() + " played-");
+		System.out.print("Player-" + players.get(player - 1).getName() + " played-");
 		h.display(played.toString());
 	}
 
 	private void winner(int playerNumb) {
-		String msg = "Hoorayy!! Player-" + players.get(playerNumb-1).getName()  + " has won.";
+		String msg = "Hoorayy!! Player-" + players.get(playerNumb - 1).getName() + " has won.";
 		h.display(msg);
 	}
 
 	private void inconclusive(int playerNumb) {
-		h.display("------------Player-" + players.get(playerNumb).getName()  + " Ran out of "
+		h.display("------------Player-" + players.get(playerNumb).getName() + " Ran out of "
 				+ "playable cards, match over!---------------\n");
 	}
 

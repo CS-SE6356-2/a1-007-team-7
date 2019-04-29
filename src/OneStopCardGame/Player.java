@@ -16,6 +16,7 @@ class Player {
 	int numberofCardsHold;
 	Boolean Iswaiting;
 	Boolean myTurn;
+//	int suit;
 
 //	protected Hand hand;
 	public Player() {
@@ -187,26 +188,36 @@ class Player {
 		if (hand == null)
 			return null;
 		List<Card> returnList = new ArrayList<Card>();
-		if(topCard.getValue()==2) {
-			if(this.getHand().contains(2)) {
-				
-			}else {
+
+		if (topCard.getValue() == 2) {
+			if (this.getHand().contains(2)) {
+
+			} else {
 			}
 		}
+
+		
 		for (int i = 0; i < this.getHand().size(); i++) {
-			
-			if (topCard.getSuit() == this.getHand().get(i).getSuit()
-					|| topCard.getValue() == this.getHand().get(i).getValue() || 11 == this.getHand().get(i).getValue()) {
-				if(topCard.getValue()==2) {
-					if(this.getHand().get(i).getValue()==2) {
-						returnList.add(this.getHand().get(i));
-					}
-				}else {
+
+			if (topCard.getValue() == 11) {
+				CardGames newC = new CardGames();
+				int suittold = newC.getSuitTold();
+				if (this.getHand().get(i).getSuit() == (suittold - 1) || 11 == this.getHand().get(i).getValue()) {
 					returnList.add(this.getHand().get(i));
 				}
-				
+			} else if (topCard.getSuit() == this.getHand().get(i).getSuit()
+					|| topCard.getValue() == this.getHand().get(i).getValue()
+					|| 11 == this.getHand().get(i).getValue()) {
+				if (topCard.getValue() == 2) {
+					if (this.getHand().get(i).getValue() == 2) {
+						returnList.add(this.getHand().get(i));
+					}
+				} else {
+					returnList.add(this.getHand().get(i));
+				}
+
 			}
-			
+
 		}
 		return returnList;
 	}
