@@ -189,17 +189,13 @@ class Player {
 			return null;
 		List<Card> returnList = new ArrayList<Card>();
 
-		if (topCard.getValue() == 2) {
-			if (this.getHand().contains(2)) {
-
-			} else {
-			}
-		}
-
-		
 		for (int i = 0; i < this.getHand().size(); i++) {
-
-			if (topCard.getValue() == 11) {
+			if (topCard.getValue() == 2) {
+				if (2 == this.getHand().get(i).getValue()) {
+					returnList.add(this.getHand().get(i));
+				} else {
+				}
+			} else if (topCard.getValue() == 11) {
 				CardGames newC = new CardGames();
 				int suittold = newC.getSuitTold();
 				if (this.getHand().get(i).getSuit() == (suittold - 1) || 11 == this.getHand().get(i).getValue()) {
