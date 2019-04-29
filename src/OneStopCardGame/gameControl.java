@@ -16,8 +16,8 @@ public class gameControl implements IGameControl {
 	@Override
 	public void init(){
 		String str = "This program lets you play the simple card game,\n" + 
-			"crazyEight's.  Crazy Eights uses a standard 52 card pack (no Jokers).  \n"
-			+ "The dealer deals (singly) seven cards to each player.  \n"
+			"One Stop Game.  One Stop Game uses a standard 52 card pack (no Jokers).  \n"
+			+ "The dealer deals (singly) five cards to each player.  \n"
 			+ "The undealt stock is placed face down on the table, \n"
 			+ "and the top card of the stock is turned face up and placed \n"
 			+ "beside the stock to start this discard pile.\n";

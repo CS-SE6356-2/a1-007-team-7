@@ -157,13 +157,11 @@ public class CardGames implements IGameControl {
 							discardPile.removeCard(topCard);
 							discardPile.shuffle();
 						}
-						if ((count + 1) == players.size()) {
+						if (true) {
 							players.get(i).addCard(deck.dealCard());
 							count = 0;
 							discardPile.addCard(deck.dealCard());
-						} else {
-							discardPile.addCard(deck.dealCard());
-						}
+						} 
 
 					}
 				} else {
