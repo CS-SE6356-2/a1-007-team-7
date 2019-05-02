@@ -21,6 +21,8 @@ public class CardGames implements IGameControl {
 	List<Player> players;
 	Player discardPile;
 	static int suit;
+	static boolean twoRuleApply;
+	static boolean gameStarted;
 
 	public CardGames() {
 		init();
@@ -43,13 +45,13 @@ public class CardGames implements IGameControl {
 				+ "“One Card” If the player has one card left, he needs to yell out “One card” If not, he will get 2 cards for penalty. \n"
 				+ "“Stop!” When the last card is played, the player needs to yell “Stop!” Otherwise, the player will get 2 cards for penalty.\n";
 
-		if (suit == 0) {
+		if (suit == 0 && gameStarted==false) {
 			h.display(str);
 			deck = new Deck();
 			deck.shuffle();
 			gamEnd = false;
 		}
-			
+
 	}
 
 	public void runGame() {
@@ -73,7 +75,7 @@ public class CardGames implements IGameControl {
 			for (int i = 0; i < numPlayers; i++) {
 				players.add(new Player());
 			}
-
+			gameStarted=true;
 			playGame();
 
 			h.display("Play again (t/f)" + "?");
@@ -81,6 +83,7 @@ public class CardGames implements IGameControl {
 			playAgain = h.getInput();
 
 			if (playAgain == 't') {
+				gameStarted=false;
 				init();
 			}
 		} while (playAgain == 't');
@@ -137,7 +140,8 @@ public class CardGames implements IGameControl {
 		for (int i = 0; i < players.size(); i++) {
 			System.out.println("\nPlayer-" + players.get(i).playerName + " has " + players.get(i).getHand().toString());
 			Card topCard = discardPile.getHand().get(discardPile.getCardCount() - 1);
-
+			
+			
 			if (deck.cardsLeft() == 0) {
 				discardPile.removeCard(topCard);
 				discardPile.shuffle();
@@ -145,13 +149,18 @@ public class CardGames implements IGameControl {
 
 			Card played = players.get(i).playCard(topCard, deck);
 			players.get(i).removeCard(played);
+			
 
 			if (played == null) {
-				int count = 1;
+				int count = 0;
 				if (topCard.getValue() == 2) {
-					while (discardPile.getHand().get(discardPile.getCardCount() - count).getValue() == 2) {
+
+					do {
 						count++;
-					}
+					} while (discardPile.getHand().get(discardPile.getCardCount() - count).getValue() == 2);
+//						count++;
+//					}
+//					boolean taken=false;
 					for (int j = 0; j < 2 * count; j++) {
 						if (deck.cardsLeft() == 0) {
 							discardPile.removeCard(topCard);
@@ -159,18 +168,21 @@ public class CardGames implements IGameControl {
 						}
 						if (true) {
 							players.get(i).addCard(deck.dealCard());
+//							twoRuleApply=false;
+//							taken=true;
 							count = 0;
-							discardPile.addCard(deck.dealCard());
-						} 
+//							players.get(i).addCard(deck.dealCard());
+						}
 
 					}
+					
 				} else {
 					inconclusive(i);
 					players.get(i).addCard(deck.dealCard());
 				}
 			} else {
 				int temp = (i + 1); // prevent computer 0 output
-
+//				twoRuleApply=true;
 				playedCard(temp, played);
 
 				if (played.getValue() == 11) {
@@ -194,6 +206,11 @@ public class CardGames implements IGameControl {
 	public int getSuitTold() {
 		// TODO Auto-generated method stub
 		return suit;
+
+	}
+	public boolean getiftwoRuleApply() {
+		// TODO Auto-generated method stub
+		return twoRuleApply;
 
 	}
 

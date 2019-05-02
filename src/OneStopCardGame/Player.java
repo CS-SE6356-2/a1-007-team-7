@@ -190,12 +190,13 @@ class Player {
 		List<Card> returnList = new ArrayList<Card>();
 
 		for (int i = 0; i < this.getHand().size(); i++) {
-			if (topCard.getValue() == 2) {
-				if (2 == this.getHand().get(i).getValue()) {
-					returnList.add(this.getHand().get(i));
-				} else {
-				}
-			} else if (topCard.getValue() == 11) {
+//			if (topCard.getValue() == 2) {
+//				if (2 == this.getHand().get(i).getValue()) {
+//					returnList.add(this.getHand().get(i));
+//				} else {
+//				}
+//			} else 
+				if (topCard.getValue() == 11) {
 				CardGames newC = new CardGames();
 				int suittold = newC.getSuitTold();
 				if (this.getHand().get(i).getSuit() == (suittold - 1) || 11 == this.getHand().get(i).getValue()) {
@@ -204,13 +205,13 @@ class Player {
 			} else if (topCard.getSuit() == this.getHand().get(i).getSuit()
 					|| topCard.getValue() == this.getHand().get(i).getValue()
 					|| 11 == this.getHand().get(i).getValue()) {
-				if (topCard.getValue() == 2) {
-					if (this.getHand().get(i).getValue() == 2) {
-						returnList.add(this.getHand().get(i));
-					}
-				} else {
+//				if (topCard.getValue() == 2) {
+//					if (this.getHand().get(i).getValue() == 2) {
+//						returnList.add(this.getHand().get(i));
+//					}
+//				} else {
 					returnList.add(this.getHand().get(i));
-				}
+//				}
 
 			}
 
